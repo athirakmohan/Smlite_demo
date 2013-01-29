@@ -91,7 +91,8 @@ public class DBHelper {
 				vendor.setName(rs.getString(2));
 				vendor.setPurchaseOrderAvailable(rs.getBoolean(3));
 				vendor.setPurchaseNumber(rs.getString(4));
-				vendor.setOrderType(rs.getInt(5));
+				vendor.setPurchaseCost(rs.getInt(5));
+				vendor.setOrderType(rs.getInt(6));
 			}
 		}
 		return vendor;
@@ -105,9 +106,10 @@ public class DBHelper {
 				Vendor vendor = new Vendor();
 				vendor.setId(rs.getInt(1));
 				vendor.setName(rs.getString(2));
-				vendor.setPurchaseOrderAvailable(rs.getBoolean(3));
+				vendor.setPurchaseOrderAvailable(rs.getBoolean(3));				
 				vendor.setPurchaseNumber(rs.getString(4));
-				vendor.setOrderType(rs.getInt(5));
+				vendor.setPurchaseCost(rs.getInt(5));
+				vendor.setOrderType(rs.getInt(6));
 				listVendors.add(vendor);
 			}
 		}
@@ -122,7 +124,8 @@ public class DBHelper {
 			stmt.setString(1, vendor.getName());
 			stmt.setInt(2, vendor.isPurchaseOrderAvailable() ? 1 : 0);
 			stmt.setString(3, vendor.getPurchaseNumber());
-			stmt.setInt(4, vendor.getOrderType());
+			stmt.setInt(4,vendor.getPurchaseCost());
+			stmt.setInt(5, vendor.getOrderType());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.first()) {
@@ -139,8 +142,9 @@ public class DBHelper {
 			stmt.setString(1, vendor.getName());
 			stmt.setInt(2, vendor.isPurchaseOrderAvailable() ? 1 : 0);
 			stmt.setString(3, vendor.getPurchaseNumber());
-			stmt.setInt(4, vendor.getOrderType());
-			stmt.setInt(5, vendor.getId());
+			stmt.setInt(4, vendor.getPurchaseCost());
+			stmt.setInt(5, vendor.getOrderType());
+			stmt.setInt(6, vendor.getId());
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.first()) {

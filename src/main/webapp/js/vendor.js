@@ -1,6 +1,7 @@
 var OP_RESET = 1;
 
 function showAddUpdateVendor(id, isAdd, operation) {
+	alert("show new");
 	var form = $("#addUpdateVendor")[0];
 	var title = $("#addUpdateFormTitle");
 	if (isAdd) {
@@ -10,7 +11,7 @@ function showAddUpdateVendor(id, isAdd, operation) {
 		$("#divListOfVendors").css("display", "none");
 		$("#divAddEditVendor").css("display", "block");
 	} else {
-		var btnAction, progressText, errMsg;
+		var btnAction, progressText, errMsg, test;
 		if (operation == OP_RESET) {
 			btnAction = $("#btnReset")[0];
 			progressText = "Resetting...";
@@ -21,7 +22,7 @@ function showAddUpdateVendor(id, isAdd, operation) {
 			errMsg = "Error loading the vendor data for edit...";
 		}
 		var actionTextOri = btnAction.textContent;
-		btnAction.textContent = progressText;
+		btnAction.textContent = progressText;		
 		btnAction.disabled = true;
 		$
 				.ajax({
@@ -40,6 +41,9 @@ function showAddUpdateVendor(id, isAdd, operation) {
 						form.purchaseNumber.value = data["purchaseNumber"];
 						form.orderType.value = data["orderType"];
 
+						form.purchaseCost.value=data["purchaseCost"];
+						
+						
 						enablePurchaseDetails(purchaseOrderAvail);
 						$("#divListOfVendors").css("display", "none");
 						$("#divAddEditVendor").css("display", "block");
@@ -61,9 +65,11 @@ function showAddUpdateVendor(id, isAdd, operation) {
 function enablePurchaseDetails(state) {
 	var form = $("#addUpdateVendor")[0];
 	var number = form.purchaseNumber;
+	var cost = form.purchaseCost;
 	var type = form.orderType;
 	number.disabled = !state;
 	type.disabled = !state;
+	cost.disabled= !state;
 }
 
 function saveVendor() {
@@ -94,6 +100,8 @@ function saveVendor() {
 		method = "PUT";
 	}
 	var params = jqForm.serialize();
+	alert("params"+params);
+	alert("id"+id);
 	$.ajax({
 		url : urlAddUpdate + "&" + params,
 		type : method,
@@ -157,11 +165,20 @@ function validateVendor(form) {
 			errObj.error = true;
 			errObj.msg = "Purchase number can't be empty.";
 			errObj.id = form.purchaseNumber.id;
-		} else if (form.orderType.value == 0) {
+		}else if (form.purchaseCost.value == 0) {
+			errObj.error = true;
+			errObj.msg = "Purchase cost can't be empty.";
+			errObj.id = form.purchaseCost.id;
+		}
+		else if (form.orderType.value == 0) {
 			errObj.error = true;
 			errObj.msg = "Select any order type.";
 			errObj.id = form.orderType.id;
 		}
 	}
 	return errObj;
+}
+function spending() {
+	
+	alert("spending");
 }

@@ -17,6 +17,11 @@ public class Vendor {
 	private boolean purchaseOrderAvailable;
 
 	private String purchaseNumber;
+	
+	private int purchaseCost;
+	
+
+	
 
 	private int orderType;
 
@@ -62,6 +67,14 @@ public class Vendor {
 
 	public void setPurchaseNumber(String purchaseNumber) {
 		this.purchaseNumber = purchaseNumber;
+	}
+	
+	public int getPurchaseCost() {
+		return purchaseCost;
+	}
+
+	public void setPurchaseCost(int purchaseCost) {
+		this.purchaseCost = purchaseCost;
 	}
 
 	public int getOrderType() {

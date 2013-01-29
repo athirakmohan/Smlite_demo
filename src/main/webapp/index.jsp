@@ -17,17 +17,24 @@
 <script type="text/javascript" src="js/vendor.js"></script>
 </head>
 <body>
+
 	<div style="margin: 100px 0 0 100px;">
 		<div class="dropdown clearfix">
 			<a id="drop1" href="#" role="button" class="dropdown-toggle"
 				data-toggle="dropdown">Vendor <b class="caret"></b></a>
+				
 			<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 				<li><a tabindex="-1"
 					href="javascript:showAddUpdateVendor(-1, true)">New</a></li>
 				<li><a tabindex="-1" href="javascript:location.reload();">Refresh</a></li>
 			</ul>
+			
+			<button class="btn btn-info" onclick="javascript:spending()">Projections</button>
+            
 		</div>
+	
 		<br>
+		
 		<div id="divListOfVendors">
 			<div style="margin-bottom: 5px;"><b><u>List of Vendors:</u></b></div>
 			<table id="vendors" border="2" cellpadding="5px"
@@ -38,7 +45,9 @@
 						<td>Name</td>
 						<td>Is Purchase Order Available?</td>
 						<td>Purchase Number</td>
+						<td>Purchase cost</td>
 						<td>Purchase Type</td>
+						<td>Purchase Duration</td>
 						<td>Actions</td>
 					</tr>
 				</thead>
@@ -62,10 +71,10 @@
 					<td><%=vendor.getId()%></td>
 					<td><%=vendor.getName()%></td>
 					<td><%=vendor.isPurchaseOrderAvailable() ? "Yes" : "No"%></td>
-					<td><%=vendor.isPurchaseOrderAvailable() ? vendor
-							.getPurchaseNumber() : "N/A"%></td>
-					<td><%=vendor.isPurchaseOrderAvailable() ? listOrderTypes
-							.get(vendor.getOrderType() - 1).getName() : "N/A"%></td>
+					<td><%=vendor.isPurchaseOrderAvailable() ? vendor.getPurchaseNumber() : "N/A"%></td>
+					<td><%=vendor.isPurchaseOrderAvailable() ? vendor.getPurchaseCost() : "N/A"%></td>
+					<td><%=vendor.isPurchaseOrderAvailable() ? listOrderTypes.get(vendor.getOrderType() - 1).getName() : "N/A"%></td>
+					<td><%=vendor.isPurchaseOrderAvailable() ? "Monthly" : "N/A"%></td>
 					<td>
 						<button class="btn" id="btnEdit<%=vendor.getId()%>"
 							onclick="showAddUpdateVendor(<%=vendor.getId()%>, false)">Edit</button>
@@ -79,6 +88,9 @@
 				%>
 			</table>
 		</div>
+		
+		
+		
 		<div id="divAddEditVendor" style="display: none;">
 			<div id="addUpdateFormTitle"
 				style="margin-bottom: 10px; text-decoration: underline; font-weight: bold;"></div>
@@ -104,10 +116,27 @@
 							name="purchaseNumber" value="" /></td>
 					</tr>
 					<tr valign="top">
+						<td>Purchase Cost</td>
+						<td><input type="text" id="purchaseCost"
+							name="purchaseCost" value="" /></td>
+					</tr>
+					<tr valign="top">
 						<td>Purchase Order Type</td>
 						<td><select id="orderType" name="orderType">
-							
+								<option value="0">Select a type...</option>
+								<%
+									for (int i = 0; i < listOrderTypes.size(); i++) {
+										OrderType orderType = listOrderTypes.get(i);
+								%>
+								<option value="<%=orderType.getId()%>"><%=orderType.getName()%></option>
+								<%
+									}
+								%>
 						</select></td>
+					</tr>
+					<tr valign="top">
+						<td>Purchase Duration</td>
+						<td><span class="label">Monthly</span></td>
 					</tr>
 					<tr>
 						<td colspan="2">

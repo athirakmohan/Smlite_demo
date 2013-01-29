@@ -26,9 +26,9 @@ public interface Constants {
 
 	String SQL_GET_VENDORS = "select *from vendor";
 
-	String SQL_ADD_VENDOR = "insert into vendor(name,purchaseOrderAvailable,purchaseNumber,orderType) values(?,?,?,?)";
+	String SQL_ADD_VENDOR = "insert into vendor(name,purchaseOrderAvailable,purchaseNumber,purchaseCost,orderType) values(?,?,?,?,?)";
 
-	String SQL_UPDATE_VENDOR = "update vendor set name=?, purchaseOrderAvailable=?, purchaseNumber=?, orderType=? where id=?";
+	String SQL_UPDATE_VENDOR = "update vendor set name=?, purchaseOrderAvailable=?, purchaseNumber=?,purchaseCost=?, orderType=? where id=?";
 
 	String SQL_DELETE_VENDOR = "delete from vendor where id=?";
 }
