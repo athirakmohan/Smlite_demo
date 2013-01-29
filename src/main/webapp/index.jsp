@@ -16,21 +16,19 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/vendor.js"></script>
 </head>
-<body>
-
+<body>       
 	<div style="margin: 100px 0 0 100px;">
-		<div class="dropdown clearfix">
-			<a id="drop1" href="#" role="button" class="dropdown-toggle"
-				data-toggle="dropdown">Vendor <b class="caret"></b></a>
-				
-			<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-				<li><a tabindex="-1"
+		<div class="dropdown clearfix ">
+			
+				<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Vendor</button>
+			    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1" >
+				<li class="dropdown-submenu"><a tabindex="-1"
 					href="javascript:showAddUpdateVendor(-1, true)">New</a></li>
-				<li><a tabindex="-1" href="javascript:location.reload();">Refresh</a></li>
+				<li class="dropdown-submenu"><a tabindex="-1" href="javascript:location.reload();">Refresh</a></li>
 			</ul>
 			
-			<button class="btn btn-info" onclick="javascript:spending()">Projections</button>
-            
+			<button class="btn btn-primary" onclick="javascript:projections()">Projections</button>
+         
 		</div>
 	
 		<br>
@@ -51,7 +49,7 @@
 						<td>Actions</td>
 					</tr>
 				</thead>
-				<%
+				 <%
 					DBHelper dbHelper = DBHelper.getInstance();
 					List<OrderType> listOrderTypes = dbHelper.getOderTypes();
 					List<Vendor> vendors = dbHelper.getVendors();
@@ -90,7 +88,48 @@
 		</div>
 		
 		
-		
+		<div id="divProjections" style="display: none;">
+			<div style="margin-bottom: 5px;"><b><u>Projections</u></b></div>
+			<table id="projections" border="2" cellpadding="5px"
+				style="font-size: 12px;" >
+				<thead>
+					<tr style="background: #5CB3FF; font-weight: bold;">
+					    <td>Vendor</td>
+						<td>Month Spending</td>
+						<td>Projection for Quarter</td>
+						<td>Projection for Year</td>						
+					</tr>
+				</thead>
+				<%
+				       int monthCost=0;
+						for (int i = 0; i < vendors.size(); i++) {							
+							 int monthCostVendor = 0;
+							Vendor vendor = vendors.get(i);
+							if(vendor.isPurchaseOrderAvailable()){
+								  monthCostVendor = vendor.getPurchaseCost();
+							      monthCost= monthCost+ vendor.getPurchaseCost();
+							   
+							}
+							%>
+							<tr>							
+							   <td><%=vendor.getName()%></td>				
+								<td><%=monthCostVendor%></td>
+								<td><%=monthCostVendor*3%></td>
+								<td><%=monthCostVendor*12%></td>							
+							</tr>
+						<%
+						}			
+				%>
+				<tr style="font-size: 15px;background: #00CCCC;">
+					<td style="font-weight: bold;">Total Projection</td>
+					<td><%=monthCost%></td>
+					<td><%=monthCost*3%></td>
+					<td><%=monthCost*12%></td>
+					
+				</tr>
+				
+			</table>
+		</div>
 		<div id="divAddEditVendor" style="display: none;">
 			<div id="addUpdateFormTitle"
 				style="margin-bottom: 10px; text-decoration: underline; font-weight: bold;"></div>
@@ -150,7 +189,8 @@
 					</tr>
 				</table>
 			</form>
-		</div>
+		</div>		
 	</div>
+	
 </body>
 </html>

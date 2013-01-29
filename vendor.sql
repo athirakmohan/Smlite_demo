@@ -25,4 +25,4 @@ INSERT INTO vendor.order_type(id,name) VALUES(2,'Outbound Projects');
 INSERT INTO vendor.order_type(id,name) VALUES(3,'Software Licensing');
 INSERT INTO vendor.order_type(id,name) VALUES(4,'Hardware Purchase');
 
-
+Alter table vendor add purchaseCost int(11)after purchaseNumber;

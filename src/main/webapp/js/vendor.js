@@ -1,7 +1,6 @@
 var OP_RESET = 1;
 
-function showAddUpdateVendor(id, isAdd, operation) {
-	alert("show new");
+function showAddUpdateVendor(id, isAdd, operation) {	
 	var form = $("#addUpdateVendor")[0];
 	var title = $("#addUpdateFormTitle");
 	if (isAdd) {
@@ -9,6 +8,7 @@ function showAddUpdateVendor(id, isAdd, operation) {
 		title.html("Add New Vendor:");
 		form.id.value = -1;
 		$("#divListOfVendors").css("display", "none");
+		$("#divProjections").css("display", "none");
 		$("#divAddEditVendor").css("display", "block");
 	} else {
 		var btnAction, progressText, errMsg, test;
@@ -46,6 +46,7 @@ function showAddUpdateVendor(id, isAdd, operation) {
 						
 						enablePurchaseDetails(purchaseOrderAvail);
 						$("#divListOfVendors").css("display", "none");
+						$("#divProjections").css("display", "none");
 						$("#divAddEditVendor").css("display", "block");
 
 						btnAction.textContent = actionTextOri;
@@ -100,8 +101,7 @@ function saveVendor() {
 		method = "PUT";
 	}
 	var params = jqForm.serialize();
-	alert("params"+params);
-	alert("id"+id);
+	
 	$.ajax({
 		url : urlAddUpdate + "&" + params,
 		type : method,
@@ -125,6 +125,7 @@ function resetVendorForm() {
 
 function hideVendorForm() {
 	$("#divAddEditVendor").css("display", "none");
+	$("#divProjections").css("display", "none");
 	$("#divListOfVendors").css("display", "block");
 }
 
@@ -178,7 +179,8 @@ function validateVendor(form) {
 	}
 	return errObj;
 }
-function spending() {
-	
-	alert("spending");
+function projections() {
+	$("#divAddEditVendor").css("display", "none");
+	$("#divListOfVendors").css("display", "none");
+	$("#divProjections").css("display", "block");
 }
